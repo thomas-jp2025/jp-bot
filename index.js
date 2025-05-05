@@ -57,6 +57,14 @@ app.post("/webhook", async (req, res) => {
     const reply = msgs.data[0].content[0].text.value;
 
     // Répond à Google Chat
+
+
+// Conversion Markdown → format Google Chat
+reply = reply
+  .replace(/\*\*(.*?)\*\*/g, '*$1*')   // **gras** → *gras*
+  .replace(/__(.*?)__/g, '_$1_');      // __italique__ → _italique_
+
+    
     res.json({ text: reply });
 
   } catch (err) {
